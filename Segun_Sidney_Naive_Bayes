@@ -1,0 +1,116 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNlPsZ2emiupxJGXq8rc2Lo",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/IrishNapigkit/Bayesian_Assignment/blob/main/Napigkit%2C_Irish_Naive_Bayes_Simulation.ipynb\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "execution_count": 2,
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "MCn7rAM-tryh",
+        "outputId": "e4575654-93bd-4187-9379-f9b5a23db020"
+      },
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Prediction: Spam\n"
+          ]
+        },
+        {
+          "output_type": "stream",
+          "name": "stderr",
+          "text": [
+            "/usr/local/lib/python3.12/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but GaussianNB was fitted with feature names\n",
+            "  warnings.warn(\n"
+          ]
+        }
+      ],
+      "source": [
+        "import pandas as pd\n",
+        "from sklearn.naive_bayes import GaussianNB\n",
+        "from sklearn.preprocessing import LabelEncoder\n",
+        "\n",
+        "# Dataset\n",
+        "data = pd.DataFrame({\n",
+        "    'Free': ['Yes', 'Yes', 'No', 'No', 'No'],\n",
+        "    'Win':  ['Yes', 'No', 'Yes', 'No', 'No'],\n",
+        "    'Class': ['Spam', 'Spam', 'Spam', 'Not Spam', 'Not Spam']\n",
+        "})\n",
+        "\n",
+        "# Encode text to numbers\n",
+        "le = LabelEncoder()\n",
+        "data['Free'] = le.fit_transform(data['Free'])\n",
+        "data['Win'] = le.fit_transform(data['Win'])\n",
+        "data['Class'] = le.fit_transform(data['Class'])\n",
+        "\n",
+        "# Features and target\n",
+        "X = data[['Free', 'Win']]\n",
+        "y = data['Class']\n",
+        "\n",
+        "# Train model\n",
+        "model = GaussianNB()\n",
+        "model.fit(X, y)\n",
+        "\n",
+        "# Predict new sample\n",
+        "prediction = model.predict([[1, 0]])\n",
+        "\n",
+        "print(\"Prediction:\", \"Spam\" if prediction[0] == 1 else \"Not Spam\")"
+      ]
+    },
+    {
+      "cell_type": "markdown",
+      "source": [
+        "## Naive Bayes Simulation\n",
+        "\n",
+        "This simulation demonstrates the Naive Bayes algorithm for classifying emails as Spam or Not Spam.\n",
+        "\n",
+        "The dataset includes two features:\n",
+        "- \"Free\" (whether the email contains the word free)\n",
+        "- \"Win\" (whether the email contains the word win)\n",
+        "\n",
+        "The model was trained using Gaussian Naive Bayes and used to predict a new email.\n",
+        "The result shows whether the email is likely Spam or Not Spam."
+      ],
+      "metadata": {
+        "id": "j9j3Y-gVwPTh"
+      }
+    },
+    {
+      "cell_type": "code",
+      "source": [],
+      "metadata": {
+        "id": "QclKWCl9wg8D"
+      },
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
